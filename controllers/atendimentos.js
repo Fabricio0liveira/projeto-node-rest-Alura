@@ -11,6 +11,8 @@ module.exports = app => {
 
     // Método POST. Enviando dados para o servidor 
     app.post('/atendimentos', (req, res) => {
+        // Verificando o que o cliente está enviando na requisição. No caso o 'body'.
+        console.log(req.body)
         res.send('Você está na rota de atendimentos e está realizando um POST')
     })
 }
