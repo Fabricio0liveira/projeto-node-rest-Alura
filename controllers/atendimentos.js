@@ -17,7 +17,7 @@ module.exports = app => {
         const atendimento = req.body
 
         // Salvando os dados, que estao sendo passados no corpo da requisição, dentro da tabela no banco de dados.
-        Atendimento.adiciona(atendimento)
-        res.send('Você está na rota de atendimentos e está realizando um POST')
+        Atendimento.adiciona(atendimento, res)
+        
     })
 }
