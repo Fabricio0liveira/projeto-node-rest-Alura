@@ -12,6 +12,12 @@ module.exports = app => {
         Atendimento.listarAtendimentos(res)
     })
 
+    app.get('/atendimentos/:id', (req, res) => {
+        const id = parseInt(req.params.id)
+        
+        Atendimento.buscaPorId(id, res)
+    })
+
     // Método POST. Enviando dados para o servidor 
     app.post('/atendimentos', (req, res) => {
         // Verificando o que o cliente está enviando na requisição. No caso o 'body'.
