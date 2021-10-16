@@ -8,7 +8,8 @@ module.exports = app => {
     // método GET
     // Primeira rota
     app.get('/atendimentos', (req, res) => {
-        res.send('Você está na rota de atendimentos e está realizando um GET.')
+        // Chamando o metodo GET para listar os atendimentos. 
+        Atendimento.listarAtendimentos(res)
     })
 
     // Método POST. Enviando dados para o servidor 

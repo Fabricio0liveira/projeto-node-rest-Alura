@@ -47,6 +47,20 @@ class Atendimento {
             })
         }
     }
+
+    listarAtendimentos(res) {
+        // Listando todos os atendimentos registrados na nossa tabela atendimentos
+        const sql = 'SELECT * FROM Atendimentos'
+
+        conexao.query(sql, (erro, resultados) => {
+            if(erro) {
+                res.status(400).json(erro)
+            } else {
+                res.status(200).json(resultados)
+            }
+            
+        })
+    }
 }
 
 module.exports = new Atendimento
