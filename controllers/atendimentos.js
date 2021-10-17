@@ -5,13 +5,13 @@ const Atendimento = require('../models/atendimentos')
 // Isso é uma function que no caso irá retornar algo.
 // Exportando o módulo
 module.exports = app => {
-    // método GET
-    // Primeira rota
+    // Listando atendimentos
     app.get('/atendimentos', (req, res) => {
         // Chamando o metodo GET para listar os atendimentos. 
         Atendimento.listarAtendimentos(res)
     })
 
+    // Consultando atendimento por 'Id'
     app.get('/atendimentos/:id', (req, res) => {
         // Convertendo valor string para number
         const id = parseInt(req.params.id)
@@ -34,5 +34,12 @@ module.exports = app => {
         const values = req.body
 
         Atendimento.alterar(id, values, res)
+    })
+
+    // Deletando um atendimento
+    app.delete('/atendimentos/:id', (req, res) => {
+        const id = parseInt(req.params.id)
+
+        Atendimento.deletarAtendimento(id, res)
     })
 }
