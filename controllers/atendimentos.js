@@ -13,6 +13,7 @@ module.exports = app => {
     })
 
     app.get('/atendimentos/:id', (req, res) => {
+        // Convertendo valor string para number
         const id = parseInt(req.params.id)
         
         Atendimento.buscaPorId(id, res)
@@ -24,7 +25,14 @@ module.exports = app => {
         const atendimento = req.body
 
         // Salvando os dados, que estao sendo passados no corpo da requisição, dentro da tabela no banco de dados.
-        Atendimento.adiciona(atendimento, res)
-        
+        Atendimento.adicionarAtendimento(atendimento, res)
+    })
+
+    // Alterando dados de um atendimento
+    app.patch('/atendimentos/:id', (req, res) => {
+        const id = parseInt(req.params.id)
+        const values = req.body
+
+        Atendimento.alterar(id, values, res)
     })
 }

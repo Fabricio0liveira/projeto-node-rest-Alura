@@ -3,13 +3,16 @@ const moment =  require('moment')
 const conexao = require('../infraestrutura/conexao')
 
 class Atendimento {
-    adiciona(atendimento, res) {
+    // Adicionando novo atendimento
+    adicionarAtendimento(atendimento, res) {
         const dataCriacao = moment().format('YYYY-MM-DD HH:MM:SS')
         // Formatando a data e hora com o uso da lib moment
         const data =  moment(atendimento.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS')
 
         // Tratamento de erros
+        // Verificando se a data é maior ou igual a data atual e não menor
         const dataEhValida = moment(data).isSameOrAfter(dataCriacao)
+        // Verificando se o nome do cliente de 5 ou mais caracteres, para não registrar como vazio.
         const clienteEhValido = atendimento.cliente.length >= 5
 
         const validacoes = [
@@ -48,8 +51,8 @@ class Atendimento {
         }
     }
 
+    // Listando todos os atendimentos registrados na nossa tabela atendimentos
     listarAtendimentos(res) {
-        // Listando todos os atendimentos registrados na nossa tabela atendimentos
         const sql = 'SELECT * FROM Atendimentos'
 
         conexao.query(sql, (erro, resultados) => {
@@ -72,6 +75,22 @@ class Atendimento {
             } else {
                 res.status(200).json(atendimento)
             }  
+        })
+    }
+
+    // Alterar dados de um atendimento
+    alterar(id, values, res) {
+        if(values.data) {
+            values.data = moment(values.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS')
+        }
+        const sql = 'UPDATE Atendimentos SET ? WHERE id=?'
+    
+        conexao.query(sql, [values, id], (erro, resultados) => {
+            if(erro) {
+                res.status(400).json(erro)
+            } else {
+                res.status(200).json(resultados)
+            }
         })
     }
 }
